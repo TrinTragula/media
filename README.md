@@ -1,2 +1,3 @@
-# media
-Calcola la media del tuo libretto, sviluppato in React
+# Media
+
+Media universitaria in React
