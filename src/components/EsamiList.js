@@ -13,6 +13,7 @@ const EsamiList = (props) => {
                 newCrediti={props.newCrediti}
                 newVoto={props.newVoto}
                 canSave={props.canSave}
+                loadingSaveForm={props.loadingSaveForm}
                 onSaveForm={props.onSaveForm} />
             <br></br>
             <table className="ui very basic center aligned celled table fixed single line unstackable ">
@@ -26,7 +27,16 @@ const EsamiList = (props) => {
                 </thead>
                 <tbody>
                     {props.esami.map((esame, i) =>
-                        <Esame nome={esame.nome} voto={esame.voto} crediti={esame.crediti} uniqueid={esame.id} key={i} />
+                        <Esame nome={esame.nome}
+                            voto={esame.voto}
+                            crediti={esame.crediti}
+                            uniqueid={esame.id}
+                            key={i}
+                            order={i}
+                            loadingSave={props.loadingSave}
+                            removingItem={props.removingItem}
+                            onSaveEsame={props.onSaveEsame}
+                            onRemoveEsame={props.onRemoveEsame} />
                     )}
                 </tbody>
             </table>

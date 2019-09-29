@@ -18,10 +18,15 @@ class InsertEsameForm extends React.Component {
                         <input type="text" placeholder="Nome" value={this.props.newNome} onChange={this.props.onNewNomeChange} />
                     </div>
                     {this.props.canSave
-                        ? <div className="field">
-                            <label>&nbsp;</label>
-                            <button className="ui basic green button" type="submit" onClick={this.props.onSaveForm}>Memorizza</button>
-                        </div>
+                        ? this.props.loadingSave
+                            ? <div className="field">
+                                <label>&nbsp;</label>
+                                <div className="ui active inline loader"></div>
+                            </div>
+                            : <div className="field">
+                                <label>&nbsp;</label>
+                                <button className="ui basic green button" type="submit" onClick={this.props.onSaveForm}>Memorizza</button>
+                            </div>
                         : ''
                     }
                 </div>

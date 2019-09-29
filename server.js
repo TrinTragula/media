@@ -44,7 +44,7 @@ app.post('/esami', (req, res) => {
             return res.status(400).send('Impossibile inserire l\'esame');
         }
         // get the last insert id
-        res.send({
+        return res.send({
             lastID: this.lastID
         });
     });

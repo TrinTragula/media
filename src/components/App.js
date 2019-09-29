@@ -8,6 +8,7 @@ class App extends React.Component {
     state = {
         errorMessage: null,
         loading: true,
+        loadingSave: false,
         newNome: '',
         newCrediti: '',
         newVoto: ''
@@ -45,22 +46,89 @@ class App extends React.Component {
         });
     }
 
-    onSaveForm = async () => {
-        await axios.post('/esami', {
-            nome: this.state.newNome,
-            crediti: this.state.newCrediti,
-            voto: this.state.newVoto
+    onRemoveEsame = async (e) => {
+        let { uniqueid, order } = e.currentTarget.dataset
+        order = parseInt(order);
+
+        if (this.state.removingItem) return;
+        await this.setState({
+            removingItem: order
         });
 
-        await this.getEsami();
+        if (uniqueid) {
+            await axios.delete('/esami', {
+                data: {
+                    id: uniqueid
+                }
+            });
+        }
+        let esami = this.state.esami;
+        esami.splice(order, 1);
 
-        let esami = this.state.esami.filter(e => e.isTemp !== true);
         this.setState({
             esami: esami,
+            removingItem: false
+        })
+    }
+
+    onSaveEsame = async (e) => {
+        let { voto, crediti, nome, order } = e.currentTarget.dataset;
+        order = parseInt(order);
+
+        if (this.state.loadingSave) return;
+        await this.setState({
+            loadingSave: order
+        });
+
+        const result = await axios.post('/esami', {
+            nome: nome,
+            crediti: crediti,
+            voto: voto
+        });
+        const esami = this.state.esami;
+        const esame = esami[order];
+        esame.id = result.data.lastID;
+
+        if (esame.isTemp) {
+            esame.isTemp = false;
+            this.setState({
+                loadingSaveForm: false,
+                newNome: '',
+                newCrediti: '',
+                newVoto: '',
+                canSave: false
+            });
+        }
+
+        this.setState({
+            esami: esami,
+            loadingSave: false
+        });
+    }
+
+    onSaveForm = async () => {
+        if (this.state.loadingSaveForm) return;
+
+        await this.setState({
+            loadingSaveForm: true
+        });
+
+        this.saveTempEsame();
+        this.setState({
+            loadingSaveForm: false,
             newNome: '',
             newCrediti: '',
             newVoto: '',
             canSave: false
+        });
+    }
+
+    saveTempEsame = async () => {
+        let esami = this.state.esami.filter(e => e.isTemp !== true);
+        let tempEsame = this.state.esami.find(e => e.isTemp === true);
+        if (tempEsame) tempEsame.isTemp = false;
+        await this.setState({
+            esami: [tempEsame, ...esami]
         });
     }
 
@@ -94,7 +162,12 @@ class App extends React.Component {
                     newCrediti={this.state.newCrediti}
                     newVoto={this.state.newVoto}
                     canSave={this.state.canSave}
-                    onSaveForm={this.onSaveForm} />
+                    loadingSave={this.state.loadingSave}
+                    loadingSaveForm={this.state.loadingSaveForm}
+                    removingItem={this.state.removingItem}
+                    onSaveForm={this.onSaveForm}
+                    onSaveEsame={this.onSaveEsame}
+                    onRemoveEsame={this.onRemoveEsame} />
             </div>
         )
     }
