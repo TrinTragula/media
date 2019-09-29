@@ -11,11 +11,11 @@ class Esame extends React.Component {
             let className = "ui basic button red";
             if (this.props.removingItem) className += " disabled";
             return (
-                <div className="ui two buttons">
+                <div className="ui two icon buttons fluid tiny">
                     <div className={className} onClick={this.props.onRemoveEsame}
                         data-uniqueid={this.props.uniqueid}
                         data-order={this.props.order}>
-                        <i className="trash icon center" style={{margin: "0px"}}/>
+                        <i className="trash icon center" style={{ margin: "0px" }} />
                     </div>
                 </div>
             );
@@ -25,14 +25,14 @@ class Esame extends React.Component {
             let classNameSave = "ui basic button blue";
             if (this.props.loadingSave) classNameSave += " disabled";
             return (
-                <div className="ui two buttons">
+                <div className="ui two icon buttons fluid tiny">
                     <button className={classNameRemove} onClick={this.props.onRemoveEsame.bind(this)}
                         data-uniqueid={this.props.uniqueid}
                         data-voto={this.props.voto}
                         data-crediti={this.props.crediti}
                         data-order={this.props.order}
                         data-nome={this.props.nome}>
-                        <i className="trash icon center" />
+                        <i className="trash icon center" style={{ margin: "0px" }} />
                     </button>
                     <button className={classNameSave} onClick={this.props.onSaveEsame.bind(this)}
                         data-uniqueid={this.props.uniqueid}
@@ -40,7 +40,7 @@ class Esame extends React.Component {
                         data-crediti={this.props.crediti}
                         data-order={this.props.order}
                         data-nome={this.props.nome}>
-                        <i className="save icon" />
+                        <i className="save icon" style={{ margin: "0px" }} />
                     </button>
                 </div>
             );
