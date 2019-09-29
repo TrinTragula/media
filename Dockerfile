@@ -5,11 +5,11 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm install
-RUN npm run build
 
 RUN mkdir storage
 
 COPY . .
+RUN npm run build
 
 EXPOSE 8080
 
