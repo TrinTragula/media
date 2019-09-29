@@ -1,14 +1,16 @@
-before_script:
-  - mkdir -p ~/.ssh
-  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-  - chmod 600 ~/.ssh/id_rsa
-  - ssh-keyscan -H 'danielescarinci.com' >> ~/.ssh/known_hosts
-  
 stages:
   - deploy
 
-deploy_to_dokku:
+variables:
+  APP_NAME: media
+
+deploy:
+  image: ilyasemenov/gitlab-ci-git-push
   stage: deploy
+  environment:
+    name: production
+    url: https://$APP_NAME.danielescarinci.com/
+  only:
+    - master
   script:
-    - git remote add dokku dokku@danielescarinci.com:media
-    - git push dokku HEAD:master
+    - git-push ssh://dokku@danielescarinci.com:22/$APP_NAME
