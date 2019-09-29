@@ -11,4 +11,4 @@ deploy_to_dokku:
   stage: deploy
   script:
     - git remote add dokku dokku@danielescarinci.com:media
-    - git push dokku master
+    - git push dokku HEAD:refs/heads/master
