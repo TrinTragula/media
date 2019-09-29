@@ -15,7 +15,7 @@ class Esame extends React.Component {
                     <div className={className} onClick={this.props.onRemoveEsame}
                         data-uniqueid={this.props.uniqueid}
                         data-order={this.props.order}>
-                        <i className="trash icon center" />Elimina
+                        <i className="trash icon center" style={{margin: "0px"}}/>
                     </div>
                 </div>
             );
