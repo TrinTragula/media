@@ -43,7 +43,6 @@ app.post('/esami', (req, res) => {
         if (err) {
             return res.status(400).send('Impossibile inserire l\'esame');
         }
-        // get the last insert id
         return res.send({
             lastID: this.lastID
         });
@@ -60,8 +59,7 @@ app.delete('/esami', (req, res) => {
         if (err) {
             return res.status(400).send('Impossibile rimuovere l\'esame');
         }
-        // get the last insert id
-        res.send({
+        return res.send({
             cahnges: this.changes
         });
     });
