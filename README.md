@@ -20,4 +20,4 @@ Gli esami aggiunti saranno aggiunti in via "temporanea" per permettere allo stud
 
 ## Note
 
-Per eventuali domande o informazioni potete contattarmi al mio indirizzo mail **danielescarinci42 *(at)* gmail *(dot)* com**.
+Per eventuali domande o informazioni potete contattarmi al mio indirizzo mail **danielescarinci42 *(at)* gmail *(dot)* com**
